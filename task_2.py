@@ -1,7 +1,7 @@
 import requests
+from constants import ACCESS_TOKEN
 
 USER = 'dorican'
-ACCESS_TOKEN = '0272bd34c60025a94dbe09955006ba0d3497f07fb90d78ed2191a33922ac55a6c021ea71954a7d723a060'
 URL = f'https://api.vk.com/method/users.get?user_ids={USER}&fields=bdate&access_token={ACCESS_TOKEN}&v=5.130'
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36'}
 
