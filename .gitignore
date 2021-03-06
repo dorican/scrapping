@@ -1,0 +1,13 @@
+*.pyc
+__pycache__
+__pycache__/
+.idea
+.idea/
+
+media/
+/media/
+/media
+/venv
+
+local_settings.py
+/local_settings.py
