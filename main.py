@@ -64,7 +64,7 @@ class Parser():
                     vacancy_dict['min_salary'] = int(min_salary)
                     vacancy_dict['max_salary'] = int(max_salary)
                     vacancy_dict['currency'] = currency
-                    vacancy_dict['site_link'] = MAIN_LINK
+                    vacancy_dict['site_link'] = self.link
                     vacancies.append(vacancy_dict)
                 if soup.find('a', attrs={'class': 'HH-Pager-Controls-Next'}):
                     page += 1
