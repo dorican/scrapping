@@ -11,9 +11,9 @@ HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 
 class Parser():
-    def __init__(self, db_cursor):
-        self.main_link = MAIN_LINK
-        self.headers = HEADERS
+    def __init__(self, link, headers, db_cursor):
+        self.link = link
+        self.headers = headers
         self.db_cursor = db_cursor
 
     def get_vacancies_by_salary(self, value):
@@ -33,7 +33,7 @@ class Parser():
         }
         while True:
             params['page'] = page
-            response = requests.get(f'{MAIN_LINK}/search/vacancy', params=params, headers=HEADERS)
+            response = requests.get(f'{self.link}/search/vacancy', params=params, headers=self.headers)
             if response.ok:
                 soup = bs(response.content, 'html.parser')
                 vacancies_soup = soup.findAll('div', attrs={'class': 'vacancy-serp-item'})
@@ -80,7 +80,7 @@ class Parser():
         return False
 
 
-parser = Parser(users)
+parser = Parser(MAIN_LINK, HEADERS, users)
 
 while True:
     reaction = input('Хотите парсить? Нажмите: 1\n'
