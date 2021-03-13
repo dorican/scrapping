@@ -3,10 +3,12 @@ from bs4 import BeautifulSoup as bs
 import json
 
 
+
 MAIN_LINK = 'https://hh.ru/'
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36'}
 
-POSITION = input('Введите поисковую фразу: ')
+# POSITION = input('Введите поисковую фразу: ')
+POSITION = 'python'
 
 
 def main():
@@ -30,18 +32,21 @@ def main():
                 vacancy_a = item.find('a', attrs={'class': 'bloko-link'})
                 link = vacancy_a['href']
                 name = vacancy_a.getText()
-                salary_obj = item.find('div', attrs={'class': 'vacancy-serp-item__sidebar'}).find('span')
+                salary_obj = item.find('div', attrs={
+                    'class': 'vacancy-serp-item__sidebar'}).find('span')
                 if salary_obj:
                     salary = salary_obj.getText()
                     currency = salary[-4:]
                     if 'от' in salary:
-                        min_salary = salary[3:-4].strip().replace('\xa0', ' ')
+                        min_salary = salary[3:-4].strip().replace('\xa0', '')
                         max_salary = 'Не указано'
                     elif 'до' in salary:
                         min_salary = 'Не указано'
-                        max_salary = salary[3:-4].strip().replace('\xa0', ' ')
+                        max_salary = salary[3:-4].strip().replace('\xa0', '')
                     else:
-                        min_salary, max_salary = [s.replace('\xa0', ' ') for s in salary[:-4].strip().split('-')]
+                        min_salary, max_salary = [s.replace('\xa0', ' ') for s
+                                                  in salary[:-4].strip().split(
+                                '-')]
                 else:
                     min_salary = 'Не указано'
                     max_salary = 'Не указано'
@@ -56,10 +61,11 @@ def main():
             if soup.find('a', attrs={'class': 'HH-Pager-Controls-Next'}):
                 page += 1
             else:
+                # for item in vacancies:
+                #     users.insert_one(item)
                 with open('homework_2.json', 'w', encoding='utf-8') as file:
                     json.dump(vacancies, file, indent=2, ensure_ascii=False)
                 break
-
 
 if __name__ == '__main__':
     main()
