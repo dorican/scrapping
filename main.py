@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 CLIENT = MongoClient('localhost', 27017)
 DB = CLIENT['db_hh']
-users = DB.users
+DB_CURSOR = DB.users
 
 MAIN_LINK = 'https://hh.ru/'
 HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36'}
@@ -80,7 +80,7 @@ class Parser():
         return False
 
 
-parser = Parser(MAIN_LINK, HEADERS, users)
+parser = Parser(MAIN_LINK, HEADERS, DB_CURSOR)
 
 while True:
     reaction = input('Хотите парсить? Нажмите: 1\n'
